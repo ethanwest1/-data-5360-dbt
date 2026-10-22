@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: oliver_dim_customer
+    description: "Oliver's Customer Dimension"
+    columns:
+      - name: cust_key
+        data_tests: [unique, not_null]
+
+  - name: oliver_dim_employee
+    description: "Oliver's Employee Dimension"
+    columns:
+      - name: emp_key
+        data_tests: [unique, not_null]
+
+  - name: oliver_dim_product
+    description: "Oliver's Product Dimension"
+    columns:
+      - name: product_key
+        data_tests: [unique, not_null]
+
+  - name: oliver_dim_store
+    description: "Oliver's Store Dimension (deduplicated from source)"
+    columns:
+      - name: store_key
+        data_tests: [unique, not_null]
+
+  - name: oliver_dim_date
+    description: "Oliver's Date Dimension"
+    columns:
+      - name: date_key
+        data_tests: [unique, not_null]
+
+  - name: fact_sales
+    description: "Oliver's Sales Fact - one row per order line"
+
+  - name: sales
+    description: "Sales semantic layer - one wide, analyst-friendly row per order line"
