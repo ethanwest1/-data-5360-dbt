@@ -5,31 +5,41 @@ models:
     description: "Oliver's Customer Dimension"
     columns:
       - name: cust_key
-        data_tests: [unique, not_null]
+        data_tests:
+          - unique
+          - not_null
 
   - name: oliver_dim_employee
     description: "Oliver's Employee Dimension"
     columns:
       - name: emp_key
-        data_tests: [unique, not_null]
+        data_tests:
+          - unique
+          - not_null
 
   - name: oliver_dim_product
     description: "Oliver's Product Dimension"
     columns:
       - name: product_key
-        data_tests: [unique, not_null]
+        data_tests:
+          - unique
+          - not_null
 
   - name: oliver_dim_store
     description: "Oliver's Store Dimension (deduplicated from source)"
     columns:
       - name: store_key
-        data_tests: [unique, not_null]
+        data_tests:
+          - unique
+          - not_null
 
   - name: oliver_dim_date
     description: "Oliver's Date Dimension"
     columns:
       - name: date_key
-        data_tests: [unique, not_null]
+        data_tests:
+          - unique
+          - not_null
 
   - name: fact_sales
     description: "Oliver's Sales Fact - one row per order line"
@@ -38,10 +48,12 @@ models:
     description: "Sales semantic layer - one wide, analyst-friendly row per order line"
 
   - name: stg_employee_certifications
-    description: |
-      Staging model for employee certifications loaded from Google Drive.
-      Parses certification_json into certification_name, certification_cost,
-      and certification_awarded_date. One row per certification completion.
+    description: "Staging model for employee certifications. Parses certification_json into certification_name, certification_cost, and certification_awarded_date. One row per certification completion."
     columns:
       - name: certification_completion_id
-        data_tests: [unique,
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fact_certification
+    description: "Employee Certification Fact. The grain is one row per certification awarded to an employee (employee + certification + date awarded). Joins to oliver_dim_employee on emp_key and oliver_dim_date on date_key."
