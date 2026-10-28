@@ -36,3 +36,12 @@ models:
 
   - name: sales
     description: "Sales semantic layer - one wide, analyst-friendly row per order line"
+
+  - name: stg_employee_certifications
+    description: |
+      Staging model for employee certifications loaded from Google Drive.
+      Parses certification_json into certification_name, certification_cost,
+      and certification_awarded_date. One row per certification completion.
+    columns:
+      - name: certification_completion_id
+        data_tests: [unique,
