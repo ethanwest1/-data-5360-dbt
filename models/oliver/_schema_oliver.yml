@@ -16,6 +16,10 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: position
+        data_tests:
+          - accepted_values:
+              values: ['Sales Associate', 'Stock Clerk', 'Manager', 'Cashier', 'Customer Service']
 
   - name: oliver_dim_product
     description: "Oliver's Product Dimension"
@@ -43,6 +47,32 @@ models:
 
   - name: fact_sales
     description: "Oliver's Sales Fact - one row per order line"
+    columns:
+      - name: cust_key
+        data_tests:
+          - relationships:
+              to: ref('oliver_dim_customer')
+              field: cust_key
+      - name: emp_key
+        data_tests:
+          - relationships:
+              to: ref('oliver_dim_employee')
+              field: emp_key
+      - name: store_key
+        data_tests:
+          - relationships:
+              to: ref('oliver_dim_store')
+              field: store_key
+      - name: product_key
+        data_tests:
+          - relationships:
+              to: ref('oliver_dim_product')
+              field: product_key
+      - name: date_key
+        data_tests:
+          - relationships:
+              to: ref('oliver_dim_date')
+              field: date_key
 
   - name: sales
     description: "Sales semantic layer - one wide, analyst-friendly row per order line"
